@@ -5,7 +5,8 @@ import { Canvas, useFrame, useThree, useLoader, extend } from 'react-three-fiber
 import { OrbitControls } from 'drei'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import './styles.css'
-import candleSingle from './candle_single'
+import candleA from './candleA'
+import candleB from './candleB'
 
 function getCenterPoint(mesh) {
   const geometry = mesh.geometry
@@ -18,17 +19,16 @@ function getCenterPoint(mesh) {
 
 // fire? https://codepen.io/prisoner849/pen/XPVGLp
 
-function Candle(props) {
+function Candle({stringifiedSrc, material, test, ...props}) {
   const { camera } = useThree()  
   
   const object = useMemo(() => {
     const loader = new OBJLoader()
-    return loader.parse(candleSingle)
+    return loader.parse(stringifiedSrc)
   }, [])
 
   const candleMaterial = useMemo(() => {
-    // return new THREE.MeshNormalMaterial()
-    return new THREE.MeshPhongMaterial({ color: '#F44336', specular: '#F111111', shininess: 30, flatShading: false })
+    return material || new THREE.MeshNormalMaterial()
   }, [])
 
   useMemo(() => {
@@ -69,16 +69,19 @@ function Candle(props) {
     <>
       {object &&
         <mesh
-          {...props}
           scale={[0.01, 0.01, 0.01]}
           position={[0, -1.5, 0]}
-          rotateOnAxis={90}
+          {...props}
         >
           <primitive attach="mesh" object={object} />
         </mesh>
       }
     </>
   )
+}
+
+const urlContains = (string) => {
+  return window.location.href.toLowerCase().includes(string.toLowerCase())
 }
 
 const Scene = () => {
@@ -97,10 +100,23 @@ const Scene = () => {
     <>
       <ambientLight />
       <spotLight position={[10, 10, 10]} />
-      <pointLight position={[-10, -10, -10]} color="red" />
-      <Suspense fallback={null}>
-        <Candle />
-      </Suspense>
+      <pointLight position={[-10, -10, -10]} color="orange" />
+      {urlContains('candleA') &&
+        <Suspense fallback={null}>
+          <Candle 
+            stringifiedSrc={candleA}
+            material={new THREE.MeshPhongMaterial({ color: '#F44336', specular: '#F111111', shininess: 30, flatShading: false })}
+          />
+        </Suspense>
+      }
+      {urlContains('candleB') &&
+        <Suspense fallback={null}>
+          <Candle 
+            stringifiedSrc={candleB}
+            material={new THREE.MeshPhongMaterial({ color: '#E18C46', specular: '#F111111', shininess: 30, flatShading: false })}
+          />
+        </Suspense>
+      }
       <OrbitControls />
     </>
   )
