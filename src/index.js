@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree, useLoader, extend } from 'react-three-fiber
 import { OrbitControls } from 'drei'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import './styles.css'
+import candleSingle from './candle_single'
 
 function getCenterPoint(mesh) {
   const geometry = mesh.geometry
@@ -18,8 +19,12 @@ function getCenterPoint(mesh) {
 // fire? https://codepen.io/prisoner849/pen/XPVGLp
 
 function Candle(props) {
-  const { camera } = useThree()
-  const object = useLoader(OBJLoader, '/candle_single.obj')
+  const { camera } = useThree()  
+  
+  const object = useMemo(() => {
+    const loader = new OBJLoader()
+    return loader.parse(candleSingle)
+  }, [])
 
   const candleMaterial = useMemo(() => {
     // return new THREE.MeshNormalMaterial()
@@ -45,9 +50,9 @@ function Candle(props) {
   useFrame(() => {
     if (object) {
         const timer = Date.now() * 0.00025
-        object.position.x = Math.sin(timer * 7) * 100
-        object.position.y = Math.cos(timer * 5) * 100
-        object.position.z = Math.cos(timer * 3) * 100
+        object.position.x = Math.sin(timer * 7) * 10
+        object.position.y = Math.cos(timer * 5) * 10
+        object.position.z = Math.cos(timer * 3) * 10
     }
   })
 
@@ -66,7 +71,7 @@ function Candle(props) {
         <mesh
           {...props}
           scale={[0.01, 0.01, 0.01]}
-          position={[0, 0, 0]}
+          position={[0, -1.5, 0]}
           rotateOnAxis={90}
         >
           <primitive attach="mesh" object={object} />
@@ -105,7 +110,7 @@ ReactDOM.render(
   <Canvas
     colorManagement
     orthographic
-    camera={{ position: [0, 5, 5], zoom: 150, fov: 50 }}
+    camera={{ position: [0, 2, 5], zoom: 200, fov: 50 }}
   >
     <Scene />
   </Canvas>,

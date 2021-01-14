@@ -12,6 +12,6 @@ body,
 }
 
 body {
-  /* background: aquamarine; */
-  background: black;
+  background: rgb(9,73,121);
+  background: linear-gradient(0deg, rgba(9,73,121,1) 0%, rgba(2,0,36,1) 100%);
 }
