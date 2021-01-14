@@ -19,11 +19,11 @@ function getCenterPoint(mesh) {
 
 function Candle(props) {
   const { camera } = useThree()
-  const object = useLoader(OBJLoader, '/candle_single2.obj')
+  const object = useLoader(OBJLoader, '/candle_single.obj')
 
   const candleMaterial = useMemo(() => {
-    return new THREE.MeshNormalMaterial()
-    // return new THREE.MeshPhongMaterial()
+    // return new THREE.MeshNormalMaterial()
+    return new THREE.MeshPhongMaterial({ color: '#F44336', specular: '#F111111', shininess: 30, flatShading: false })
   }, [])
 
   useMemo(() => {
@@ -82,7 +82,7 @@ const Scene = () => {
   } = useThree()
 
   useFrame(() => {
-    const MAX_ZOOM = 200
+    const MAX_ZOOM = 300
     if (camera.zoom > MAX_ZOOM) {
       camera.zoom = camera.zoom - (camera.zoom - MAX_ZOOM) * 0.075
     }
