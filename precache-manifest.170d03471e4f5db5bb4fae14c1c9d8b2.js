@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5021b6662ff6f3bb0c14d9273c97080e",
+    "revision": "644be69d0968d8a3417c23b8e5c892ae",
     "url": "/pampa-three/index.html"
   },
   {
-    "revision": "bb8892d324eaa42ede14",
+    "revision": "aa84e86f6d2b82172f9b",
     "url": "/pampa-three/static/css/main.c832bc5d.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pampa-three/static/js/2.b0c358bf.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "bb8892d324eaa42ede14",
-    "url": "/pampa-three/static/js/main.68be52ef.chunk.js"
+    "revision": "aa84e86f6d2b82172f9b",
+    "url": "/pampa-three/static/js/main.011cb18f.chunk.js"
   },
   {
     "revision": "7617d3bc19e17f3d2275",
