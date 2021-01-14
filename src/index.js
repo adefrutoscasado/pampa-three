@@ -19,7 +19,7 @@ function getCenterPoint(mesh) {
 
 function Candle(props) {
   const { camera } = useThree()
-  const object = useLoader(OBJLoader, 'https://github.com/adefrutoscasado/pampa-three/raw/main/public/candle_single.obj')
+  const object = useLoader(OBJLoader, '/candle_single2.obj')
 
   const candleMaterial = useMemo(() => {
     return new THREE.MeshNormalMaterial()
@@ -35,7 +35,7 @@ function Candle(props) {
   }, [object])
 
   useFrame(() => {
-    if (object) {
+    if (object && object.children && object.children[0]) {
       const center = getCenterPoint(object.children[0])
       camera.lookAt(center)
       camera.updateProjectionMatrix()
