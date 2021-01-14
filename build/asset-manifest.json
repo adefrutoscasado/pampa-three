@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/pampa-three/static/css/main.c832bc5d.chunk.css",
-    "main.js": "/pampa-three/static/js/main.b08e3625.chunk.js",
-    "main.js.map": "/pampa-three/static/js/main.b08e3625.chunk.js.map",
+    "main.js": "/pampa-three/static/js/main.d3c799ef.chunk.js",
+    "main.js.map": "/pampa-three/static/js/main.d3c799ef.chunk.js.map",
     "runtime-main.js": "/pampa-three/static/js/runtime-main.88687fd5.js",
     "runtime-main.js.map": "/pampa-three/static/js/runtime-main.88687fd5.js.map",
     "static/js/2.b0c358bf.chunk.js": "/pampa-three/static/js/2.b0c358bf.chunk.js",
     "static/js/2.b0c358bf.chunk.js.map": "/pampa-three/static/js/2.b0c358bf.chunk.js.map",
     "index.html": "/pampa-three/index.html",
-    "precache-manifest.fa4032fb8de81779f10bdbd6cccf3abe.js": "/pampa-three/precache-manifest.fa4032fb8de81779f10bdbd6cccf3abe.js",
+    "precache-manifest.25e549a3932e45c6d555513562bbfef6.js": "/pampa-three/precache-manifest.25e549a3932e45c6d555513562bbfef6.js",
     "service-worker.js": "/pampa-three/service-worker.js",
     "static/css/main.c832bc5d.chunk.css.map": "/pampa-three/static/css/main.c832bc5d.chunk.css.map",
     "static/js/2.b0c358bf.chunk.js.LICENSE.txt": "/pampa-three/static/js/2.b0c358bf.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.88687fd5.js",
     "static/js/2.b0c358bf.chunk.js",
     "static/css/main.c832bc5d.chunk.css",
-    "static/js/main.b08e3625.chunk.js"
+    "static/js/main.d3c799ef.chunk.js"
   ]
 }
