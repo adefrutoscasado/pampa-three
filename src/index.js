@@ -3,10 +3,27 @@ import ReactDOM from 'react-dom'
 import React, { useMemo, Suspense, lazy } from 'react'
 import { Canvas, useFrame, useThree } from 'react-three-fiber'
 import { OrbitControls } from 'drei'
+import queryString from 'query-string'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import './styles.css'
 import candleA from './candleA'
 import candleB from './candleB'
+
+const {query} = queryString.parseUrl(window.location.href)
+
+const containsQueryString = (string) => {
+  return Object.keys(query).findIndex(
+    v => v.toUpperCase() === string.toUpperCase()
+  ) > -1
+}
+let queryStringColor = () => {
+  if (!query.color) return null
+  return query.color.startsWith('#') ?
+    query.color
+    :
+    '#' + query.color
+}
+queryStringColor = queryStringColor()
 
 function getCenterPoint(mesh) {
   const geometry = mesh.geometry
@@ -43,7 +60,7 @@ function Candle({stringifiedSrc, material, test, ...props}) {
       z: randomTheta()
     }
   }, [])
-
+  
   useMemo(() => {
     object.traverse(function (child) {
       if (child instanceof THREE.Mesh) {
@@ -93,20 +110,16 @@ function Candle({stringifiedSrc, material, test, ...props}) {
   )
 }
 
-const urlContains = (string) => {
-  return window.location.href.toLowerCase().includes(string.toLowerCase())
-}
-
-const CandleA = lazy(() => import('./candleA').then(candleA => {
-  return (
-    // <Suspense fallback={null}>
-      <Candle 
-        stringifiedSrc={candleA.default}
-        material={new THREE.MeshPhongMaterial({ color: '#F44336', specular: '#F111111', shininess: 30, flatShading: false })}
-      />
-    // </Suspense>
-  )
-}))
+// const CandleA = lazy(() => import('./candleA').then(candleA => {
+//   return (
+//     <Suspense fallback={null}>
+//       <Candle 
+//         stringifiedSrc={candleA.default}
+//         material={new THREE.MeshPhongMaterial({ color: '#F44336', specular: '#F111111', shininess: 30, flatShading: false })}
+//       />
+//     </Suspense>
+//   )
+// }))
 
 const Scene = () => {
   const {
@@ -120,34 +133,27 @@ const Scene = () => {
     }
   })
 
+  console.log(queryString.parseUrl(window.location.href))
+
   return (
     <>
       <ambientLight />
       <spotLight position={[10, 10, 10]} />
       <pointLight position={[-10, -10, -10]} color="orange" />
-      {/* {urlContains('candleA') &&
-        <Suspense fallback={null}>
-          <Candle 
-            stringifiedSrc={candleA}
-            material={new THREE.MeshPhongMaterial({ color: '#F44336', specular: '#F111111', shininess: 30, flatShading: false })}
-          />
-        </Suspense>
-      } */}
-      {urlContains('candleA') &&
-        <Suspense fallback={null}>
-          <Candle 
-            stringifiedSrc={candleA}
-            material={new THREE.MeshPhongMaterial({ color: '#F44336', specular: '#F111111', shininess: 30, flatShading: false })}
-          />
-        </Suspense>
+      {/* <Suspense fallback={null}>
+        <CandleA ></CandleA>
+      </Suspense> */}
+      {containsQueryString('candleA') &&
+        <Candle 
+          stringifiedSrc={candleA}
+          material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: false })}
+        />
       }
-      {urlContains('candleB') &&
-        <Suspense fallback={null}>
-          <Candle 
-            stringifiedSrc={candleB}
-            material={new THREE.MeshPhongMaterial({ color: '#E18C46', specular: '#F111111', shininess: 30, flatShading: false })}
-          />
-        </Suspense>
+      {containsQueryString('candleB') &&
+        <Candle 
+          stringifiedSrc={candleB}
+          material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: false })}
+        />
       }
       <OrbitControls />
     </>
