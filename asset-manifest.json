@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/pampa-three/static/css/main.fbd1a200.chunk.css",
-    "main.js": "/pampa-three/static/js/main.e628cd16.chunk.js",
-    "main.js.map": "/pampa-three/static/js/main.e628cd16.chunk.js.map",
+    "main.js": "/pampa-three/static/js/main.ad3e5128.chunk.js",
+    "main.js.map": "/pampa-three/static/js/main.ad3e5128.chunk.js.map",
     "runtime-main.js": "/pampa-three/static/js/runtime-main.88687fd5.js",
     "runtime-main.js.map": "/pampa-three/static/js/runtime-main.88687fd5.js.map",
-    "static/js/2.f738e7d4.chunk.js": "/pampa-three/static/js/2.f738e7d4.chunk.js",
-    "static/js/2.f738e7d4.chunk.js.map": "/pampa-three/static/js/2.f738e7d4.chunk.js.map",
+    "static/js/2.4a6c5261.chunk.js": "/pampa-three/static/js/2.4a6c5261.chunk.js",
+    "static/js/2.4a6c5261.chunk.js.map": "/pampa-three/static/js/2.4a6c5261.chunk.js.map",
     "index.html": "/pampa-three/index.html",
-    "precache-manifest.06fa3650f5f9b927d74044f614e0f9bb.js": "/pampa-three/precache-manifest.06fa3650f5f9b927d74044f614e0f9bb.js",
+    "precache-manifest.2ad72680c1a642de249a5d921b1028bd.js": "/pampa-three/precache-manifest.2ad72680c1a642de249a5d921b1028bd.js",
     "service-worker.js": "/pampa-three/service-worker.js",
     "static/css/main.fbd1a200.chunk.css.map": "/pampa-three/static/css/main.fbd1a200.chunk.css.map",
-    "static/js/2.f738e7d4.chunk.js.LICENSE.txt": "/pampa-three/static/js/2.f738e7d4.chunk.js.LICENSE.txt"
+    "static/js/2.4a6c5261.chunk.js.LICENSE.txt": "/pampa-three/static/js/2.4a6c5261.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.88687fd5.js",
-    "static/js/2.f738e7d4.chunk.js",
+    "static/js/2.4a6c5261.chunk.js",
     "static/css/main.fbd1a200.chunk.css",
-    "static/js/main.e628cd16.chunk.js"
+    "static/js/main.ad3e5128.chunk.js"
   ]
 }
