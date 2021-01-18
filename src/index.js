@@ -23,6 +23,7 @@ const queryStringColor = function(){
 
 const CandleA = lazy(() => import('./models/candleA'))
 const CandleB = lazy(() => import('./models/candleB'))
+const CandleC = lazy(() => import('./models/candleC'))
 
 const Scene = () => {
   const {
@@ -44,14 +45,21 @@ const Scene = () => {
       {containsQueryString('candleA') &&
         <Suspense fallback={null}>
             <CandleA
-              material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: false })}
+              material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true })}
             />
         </Suspense>
       }
       {containsQueryString('candleB') &&
         <Suspense fallback={null}>
             <CandleB
-              material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: false })}
+              material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true })}
+            />
+        </Suspense>
+      }
+      {containsQueryString('candleC') &&
+        <Suspense fallback={null}>
+            <CandleC
+              material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true })}
             />
         </Suspense>
       }
@@ -64,7 +72,7 @@ ReactDOM.render(
   <Canvas
     colorManagement
     orthographic
-    camera={{ position: [0, 2, 5], zoom: 200, fov: 50 }}
+    camera={{ position: [0, 2, 5], zoom: 250, fov: 50 }}
     pixelRatio={window.devicePixelRatio}
   >
     <Scene />
