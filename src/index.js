@@ -72,7 +72,7 @@ ReactDOM.render(
   <Canvas
     colorManagement
     orthographic
-    camera={{ position: [0, 2, 5], zoom: 250, fov: 50 }}
+    camera={{ position: [0, 2, 5], zoom: 200, fov: 50 }}
     pixelRatio={window.devicePixelRatio}
   >
     <Scene />
