@@ -6,3 +6,4 @@ Models:
 
 - [Candle A](https://adefrutoscasado.github.io/pampa-three/?candleA)
 - [Candle B](https://adefrutoscasado.github.io/pampa-three/?candleB)
+- [Candle C](https://adefrutoscasado.github.io/pampa-three/?candleC)
