@@ -3,7 +3,8 @@ import React from 'react'
 import Candle from './../Candle'
 export default (props) => <Candle stringifiedSrc={model} {...props} />
 
-var model = `# Rhino
+var model = `
+# Rhino
 
 v 22.316749572753906 -11.125508308410645 -0.0019451717380434275
 v 19.65373420715332 -14.48126220703125 -0.0019451717380434275
