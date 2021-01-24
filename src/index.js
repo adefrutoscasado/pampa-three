@@ -19,6 +19,8 @@ const queryStringColor = (function () {
 const CandleA = lazy(() => import('./models/candleA'))
 const CandleB = lazy(() => import('./models/candleB'))
 const CandleC = lazy(() => import('./models/candleC'))
+const CandleD = lazy(() => import('./models/candleD'))
+const CandleE = lazy(() => import('./models/candleE'))
 
 const Scene = () => {
   const { camera } = useThree()
@@ -52,6 +54,16 @@ const Scene = () => {
       {containsQueryString('candleC') && (
         <Suspense fallback={null}>
           <CandleC material={candleMaterial} />
+        </Suspense>
+      )}
+      {containsQueryString('candleD') && (
+        <Suspense fallback={null}>
+          <CandleD material={candleMaterial} />
+        </Suspense>
+      )}
+      {containsQueryString('candleE') && (
+        <Suspense fallback={null}>
+          <CandleE material={candleMaterial} />
         </Suspense>
       )}
       <OrbitControls />
