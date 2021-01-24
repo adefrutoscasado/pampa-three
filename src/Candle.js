@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import React, { useMemo } from 'react'
-import { useFrame, useThree } from 'react-three-fiber'
+import React, { useMemo, useState } from 'react'
+import { useFrame, useThree, useRender } from 'react-three-fiber'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier'
 
@@ -41,7 +41,10 @@ function getRandomInt(min, max) {
 }
 
 export default function Candle({ stringifiedSrc, material, test, ...props }) {
-  const { camera } = useThree()
+  const [ ready, setReady ] = useState(false)
+  const { 
+    camera
+  } = useThree()
 
   const object = useMemo(() => {
     const loader = new OBJLoader()
@@ -76,6 +79,7 @@ export default function Candle({ stringifiedSrc, material, test, ...props }) {
       const center = getCenterPoint(object.children[0])
       camera.lookAt(center)
       camera.updateProjectionMatrix()
+      setReady(true)
     }
   })
 
@@ -99,7 +103,7 @@ export default function Candle({ stringifiedSrc, material, test, ...props }) {
 
   return (
     <>
-      {object && (
+      {ready && (
         <mesh scale={[0.01, 0.01, 0.01]} position={[0, -1.5, 0]} {...props}>
           <primitive attach="mesh" object={object} />
         </mesh>
