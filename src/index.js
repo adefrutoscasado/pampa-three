@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import ReactDOM from 'react-dom'
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from 'react-three-fiber'
 import { OrbitControls } from 'drei'
 import queryString from 'query-string'
@@ -37,6 +37,10 @@ const Scene = () => {
     }
   })
 
+  const candleMaterial = useMemo(() => {
+    return new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true })
+  })
+
   return (
     <>
       <ambientLight />
@@ -44,23 +48,17 @@ const Scene = () => {
       <pointLight position={[-10, -10, -10]} color="orange" />
       {containsQueryString('candleA') &&
         <Suspense fallback={null}>
-            <CandleA
-              material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true })}
-            />
+            <CandleA material={candleMaterial} />
         </Suspense>
       }
       {containsQueryString('candleB') &&
         <Suspense fallback={null}>
-            <CandleB
-              material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true })}
-            />
+            <CandleB material={candleMaterial} />
         </Suspense>
       }
       {containsQueryString('candleC') &&
         <Suspense fallback={null}>
-            <CandleC
-              material={new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true })}
-            />
+            <CandleC material={candleMaterial} />
         </Suspense>
       }
       <OrbitControls />
