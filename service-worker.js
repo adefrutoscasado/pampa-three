@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/pampa-three/precache-manifest.29fac951a84d552a58304c7383f1b3cc.js"
+  "/pampa-three/precache-manifest.85980c973f0627dadb612f0020a7a081.js"
 );
 
 self.addEventListener('message', (event) => {
