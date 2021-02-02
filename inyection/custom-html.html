@@ -25,7 +25,7 @@ function iframe (candle) {
 </div>
 `}
 
-function inyectIframes () {
+function _inyectShopPageIframes () {
     try {
         const iframeModelKey = {
             'MODELO-1': 'candleA',
@@ -59,6 +59,20 @@ function inyectIframes () {
     }
 }
 
+function _inyectMainPageIframes () {
+    try {
+    $('*[data-id="16900032"]>.bodycopy.content.content_padding>.page_content.clearfix')
+        .prepend(iframe('candleE'))
+        .prepend(iframe('candleD'))
+        .prepend(iframe('candleC'))
+        .prepend(iframe('candleB'))
+        .prepend(iframe('candleA'))
+    	return true
+    } catch (error) {
+        return false
+    }
+}
+
 function _tryUntilDone (fn, ms) {
     console.log("going to execute");
     const done = fn();
@@ -70,7 +84,15 @@ function _tryUntilDone (fn, ms) {
     }
   };
 
-$(document).ready(inyectIframes)
-window.addEventListener('locationchange', () => _tryUntilDone(inyectIframes))
+const inyectHtml = () => {
+    if (window.location.pathname.toLocaleLowerCase().includes('tienda'))
+        _tryUntilDone(_inyectShopPageIframes)
+    if (window.location.pathname === '/')
+        _tryUntilDone(_inyectMainPageIframes)
+}
+
+$(document).ready(inyectHtml)
+window.addEventListener('locationchange', inyectHtml)
+
 
 </script>
