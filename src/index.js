@@ -16,6 +16,11 @@ const queryStringColor = (function () {
   return query.color.startsWith('#') ? query.color : '#' + query.color
 })()
 
+const queryStringColorOnOver = (function () {
+  if (!query.colorOnOver) return null
+  return query.colorOnOver.startsWith('#') ? query.colorOnOver : '#' + query.colorOnOver
+})()
+
 const CandleA = lazy(() => import('./models/candleA'))
 const CandleB = lazy(() => import('./models/candleB'))
 const CandleC = lazy(() => import('./models/candleC'))
@@ -23,18 +28,26 @@ const CandleD = lazy(() => import('./models/candleD'))
 const CandleE = lazy(() => import('./models/candleE'))
 
 const Scene = () => {
-  const { camera } = useThree()
+  const { 
+    camera,
+    size
+  } = useThree()
 
-  useFrame(() => {
-    const MAX_ZOOM = 300
-    if (camera.zoom > MAX_ZOOM) {
-      camera.zoom = camera.zoom - (camera.zoom - MAX_ZOOM) * 0.075
-    }
-  })
+  useMemo(() => {
+    camera.zoom = size.height / 4
+  }, [size])
 
-  const candleMaterial = useMemo(() => {
-    return new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true })
-  })
+  const materials = useMemo(() => ({
+    material: new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true }),
+    materialOnOver: new THREE.MeshPhongMaterial({ color: queryStringColorOnOver || '#E8A772', specular: '#F111111', shininess: 30, flatShading: true })
+  }))
+
+  // useFrame(() => {
+  //   const MAX_ZOOM = 300
+  //   if (camera.zoom > MAX_ZOOM) {
+  //     camera.zoom = camera.zoom - (camera.zoom - MAX_ZOOM) * 0.075
+  //   }
+  // })
 
   return (
     <>
@@ -43,27 +56,27 @@ const Scene = () => {
       <pointLight position={[-10, -10, -10]} color="orange" />
       {containsQueryString('candleA') && (
         <Suspense fallback={null}>
-          <CandleA material={candleMaterial} />
+          <CandleA {...materials} />
         </Suspense>
       )}
       {containsQueryString('candleB') && (
         <Suspense fallback={null}>
-          <CandleB material={candleMaterial} />
+          <CandleB {...materials} />
         </Suspense>
       )}
       {containsQueryString('candleC') && (
         <Suspense fallback={null}>
-          <CandleC material={candleMaterial} />
+          <CandleC {...materials} />
         </Suspense>
       )}
       {containsQueryString('candleD') && (
         <Suspense fallback={null}>
-          <CandleD material={candleMaterial} />
+          <CandleD {...materials} />
         </Suspense>
       )}
       {containsQueryString('candleE') && (
         <Suspense fallback={null}>
-          <CandleE material={candleMaterial} />
+          <CandleE {...materials} />
         </Suspense>
       )}
       <OrbitControls />

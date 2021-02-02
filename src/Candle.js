@@ -40,8 +40,14 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-export default function Candle({ stringifiedSrc, material, ...props }) {
+export default function Candle({ 
+  stringifiedSrc, 
+  material = new THREE.MeshNormalMaterial(), 
+  materialOnOver = new THREE.MeshNormalMaterial(), 
+  ...props 
+}) {
   const [ ready, setReady ] = useState(false)
+  
   const { 
     camera
   } = useThree()
@@ -51,9 +57,20 @@ export default function Candle({ stringifiedSrc, material, ...props }) {
     return loader.parse(stringifiedSrc)
   }, [])
 
-  const candleMaterial = useMemo(() => {
-    return material || new THREE.MeshNormalMaterial()
-  }, [])
+  const onPointerMove = () => {
+    object.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = materialOnOver
+      }
+    })
+  }
+  const onPointerOut = () => {
+    object.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = material
+      }
+    })
+  }
 
   const theta = useMemo(() => {
     const randomTheta = () => getRandomInt(3, 7)
@@ -67,7 +84,7 @@ export default function Candle({ stringifiedSrc, material, ...props }) {
   useMemo(() => {
     object.traverse(function (child) {
       if (child instanceof THREE.Mesh) {
-        child.material = candleMaterial
+        child.material = material
         const MODIFIER_SUBDIVISIONS = 2
         child.geometry = subdivide(child.geometry, MODIFIER_SUBDIVISIONS)
       }
@@ -105,7 +122,12 @@ export default function Candle({ stringifiedSrc, material, ...props }) {
     <>
       {ready && (
         <mesh scale={[0.01, 0.01, 0.01]} position={[0, -1.5, 0]} {...props}>
-          <primitive attach="mesh" object={object} />
+          <primitive
+            attach="mesh"
+            object={object}
+            onPointerMove={onPointerMove}
+            onPointerOut={onPointerOut}
+          />
         </mesh>
       )}
     </>
