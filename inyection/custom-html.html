@@ -76,7 +76,6 @@ function _inyectMainPageIframes () {
 }
 
 function _tryUntilDone (fn, ms) {
-    console.log("going to execute");
     const done = fn();
     console.log({ done });
     if (!done) {

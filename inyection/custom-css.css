@@ -6,6 +6,10 @@
   pointer-events: none;
 }
 
+.iframe-container > iframe {
+  pointer-events: none !important;
+}
+
 a.image-link {
   display: block;
 }
