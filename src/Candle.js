@@ -40,7 +40,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-export default function Candle({ stringifiedSrc, material, test, ...props }) {
+export default function Candle({ stringifiedSrc, material, ...props }) {
   const [ ready, setReady ] = useState(false)
   const { 
     camera
