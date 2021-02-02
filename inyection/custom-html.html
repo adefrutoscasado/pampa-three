@@ -61,7 +61,9 @@ function _inyectShopPageIframes () {
 
 function _inyectMainPageIframes () {
     try {
-    $('*[data-id="16900032"]>.bodycopy.content.content_padding>.page_content.clearfix')
+        var selector = '*[data-id="16900032"]>.bodycopy.content.content_padding>.page_content.clearfix'
+        if ($(selector).length === 0) return false
+        $(selector)
         .prepend(iframe('candleE'))
         .prepend(iframe('candleD'))
         .prepend(iframe('candleC'))
