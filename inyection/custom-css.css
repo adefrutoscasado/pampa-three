@@ -1,0 +1,29 @@
+.iframe-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 0.3em;
+  pointer-events: none;
+}
+
+a.image-link {
+  display: block;
+}
+a.image-link > img {
+  display: none;
+}
+
+.iframe-container::after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}

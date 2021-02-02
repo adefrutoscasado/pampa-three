@@ -1,0 +1,76 @@
+<script>
+
+history.pushState = ( f => function pushState(){
+    var ret = f.apply(this, arguments);
+    window.dispatchEvent(new Event('pushstate'));
+    window.dispatchEvent(new Event('locationchange'));
+    return ret;
+})(history.pushState);
+
+history.replaceState = ( f => function replaceState(){
+    var ret = f.apply(this, arguments);
+    window.dispatchEvent(new Event('replacestate'));
+    window.dispatchEvent(new Event('locationchange'));
+    return ret;
+})(history.replaceState);
+
+window.addEventListener('popstate',()=>{
+    window.dispatchEvent(new Event('locationchange'))
+});
+
+function iframe (candle) {
+    return `
+<div class="iframe-container">
+<iframe src="https://adefrutoscasado.github.io/pampa-three/?${candle}" title="pampa-three"></iframe>
+</div>
+`}
+
+function inyectIframes () {
+    try {
+        const iframeModelKey = {
+            'MODELO-1': 'candleA',
+            'MODELO-2': 'candleB',
+            // 'MODELO-3': 'candleC',
+            // 'MODELO-4': 'candleD',
+            // 'MODELO-5': 'candleE',
+            // 'MODELO-6': 'candleF',
+            // 'MODELO-7': 'candleG',
+            // 'MODELO-8': 'candleH',
+            // 'MODELO-9': 'candleI'
+        }
+        Object.keys(iframeModelKey).forEach(function (MODEL) {
+            $(`a[href="${MODEL}"]`)
+                .prepend(iframe(iframeModelKey[MODEL]))
+            const setIframeSize = (hrefModel) => {
+                const imgSelector = `a[href="${hrefModel}"] > img`
+                const iframeSelector = `a[href="${hrefModel}"] > .iframe-container`
+                const style = $(imgSelector)[0].style.cssText
+                $(iframeSelector)[0].style.cssText = style
+            }
+            setIframeSize(MODEL)
+            $(window).on('resize', function(){
+                setIframeSize(MODEL)
+            });
+        })
+        return true
+
+    } catch (error) {
+        return false
+    }
+}
+
+function _tryUntilDone (fn, ms) {
+    console.log("going to execute");
+    const done = fn();
+    console.log({ done });
+    if (!done) {
+      window.setTimeout(() => {
+        _tryUntilDone(fn, ms + 10);
+      }, ms);
+    }
+  };
+
+$(document).ready(inyectIframes)
+window.addEventListener('locationchange', () => _tryUntilDone(inyectIframes))
+
+</script>
