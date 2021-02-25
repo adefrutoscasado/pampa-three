@@ -1,10 +1,12 @@
 import * as THREE from 'three'
 import ReactDOM from 'react-dom'
-import React, { Suspense, lazy, useMemo } from 'react'
-import { Canvas, useFrame, useThree } from 'react-three-fiber'
-import { OrbitControls } from 'drei'
+import React, { Suspense, lazy, useMemo, useRef, useEffect } from 'react'
+import { Canvas, useFrame, useThree, extend } from 'react-three-fiber'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import queryString from 'query-string'
 import './styles.css'
+
+extend({ OrbitControls })
 
 const { query } = queryString.parseUrl(window.location.href)
 
@@ -30,8 +32,11 @@ const CandleE = lazy(() => import('./models/candleE'))
 const Scene = () => {
   const { 
     camera,
-    size
+    size,
+    gl: { domElement },
+    invalidate
   } = useThree()
+  const controls = useRef()
 
   useMemo(() => {
     camera.zoom = size.height / 4
@@ -41,6 +46,12 @@ const Scene = () => {
     material: new THREE.MeshPhongMaterial({ color: queryStringColor || '#E18C46', specular: '#F111111', shininess: 30, flatShading: true }),
     materialOnOver: new THREE.MeshPhongMaterial({ color: queryStringColorOnOver || '#E8A772', specular: '#F111111', shininess: 30, flatShading: true })
   }))
+
+  useFrame(() => controls.current?.update())
+  useEffect(() => {
+    controls.current.addEventListener('change', invalidate)
+    return () => controls.current.removeEventListener('change', invalidate)
+  }, [controls.current])
 
   // useFrame(() => {
   //   const MAX_ZOOM = 300
@@ -79,7 +90,7 @@ const Scene = () => {
           <CandleE {...materials} />
         </Suspense>
       )}
-      <OrbitControls />
+      <orbitControls ref={controls} args={[camera, domElement]} enableDamping/>
     </>
   )
 }
@@ -88,8 +99,7 @@ ReactDOM.render(
   <Canvas
     colorManagement
     orthographic
-    camera={{ position: [0, 2, 5],
-    zoom: 200, fov: 50 }}
+    camera={{ position: [0, 2, 5],zoom: 200, fov: 50 }}
     pixelRatio={window.devicePixelRatio || 1}
   >
     <Scene />
