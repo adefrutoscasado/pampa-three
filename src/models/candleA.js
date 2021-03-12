@@ -1,9 +1,4 @@
-
-import React from 'react'
-import Candle from './../Candle'
-export default (props) => <Candle stringifiedSrc={model} {...props} />
-
-var model = `
+export const model = `
 # Rhino
 
 v 22.316749572753906 -11.125508308410645 -0.0019451717380434275
