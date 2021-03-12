@@ -1,5 +1,5 @@
 <script>
-
+  
 history.pushState = ( f => function pushState(){
     var ret = f.apply(this, arguments);
     window.dispatchEvent(new Event('pushstate'));
@@ -21,7 +21,7 @@ window.addEventListener('popstate',()=>{
 function iframe (candle) {
     return `
 <div class="iframe-container">
-<iframe src="https://adefrutoscasado.github.io/pampa-three/?${candle}" title="pampa-three"></iframe>
+<iframe src="https://d25ud1xgdqkxk4.cloudfront.net/?${candle}" title="pampa-three"></iframe>
 </div>
 `}
 
@@ -30,7 +30,7 @@ function _inyectShopPageIframes () {
         const iframeModelKey = {
             'MODELO-1': 'candleA',
             'MODELO-2': 'candleB',
-            // 'MODELO-3': 'candleC',
+            'MODELO-3': 'candleC',
             // 'MODELO-4': 'candleD',
             // 'MODELO-5': 'candleE',
             // 'MODELO-6': 'candleF',
@@ -96,4 +96,21 @@ $(document).ready(inyectHtml)
 window.addEventListener('locationchange', inyectHtml)
 
 
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

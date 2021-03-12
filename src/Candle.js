@@ -1,8 +1,6 @@
 import * as THREE from 'three'
 import React, { useMemo, useState } from 'react'
-import { useFrame, useThree, useRender } from 'react-three-fiber'
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier'
+import { useFrame, useThree } from 'react-three-fiber'
 
 function getCenterPoint(mesh) {
   const geometry = mesh.geometry
@@ -13,29 +11,6 @@ function getCenterPoint(mesh) {
   return center
 }
 
-/**
- * Generates a smooth geometry from a shaded one
- * https://threejs.org/examples/?q=subd#webgl_modifier_subdivision
- */
-function subdivide(geometry, subdivisions) {
-  const faceIndices = ['a', 'b', 'c']
-  const modifier = new SubdivisionModifier(subdivisions)
-  const smoothGeometry = modifier.modify(geometry)
-  // colorify faces
-  for (let i = 0; i < smoothGeometry.faces.length; i++) {
-    const face = smoothGeometry.faces[i]
-    for (let j = 0; j < 3; j++) {
-      const vertexIndex = face[faceIndices[j]]
-      const vertex = smoothGeometry.vertices[vertexIndex]
-      const hue = vertex.y / 200 + 0.5
-      const color = new THREE.Color().setHSL(hue, 1, 0.5)
-      face.vertexColors[j] = color
-    }
-  }
-  // convert to THREE.BufferGeometry
-  return new THREE.BufferGeometry().fromGeometry(smoothGeometry)
-}
-
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
@@ -44,6 +19,7 @@ export default function Candle({
   stringifiedSrc, 
   material = new THREE.MeshNormalMaterial(), 
   materialOnOver = new THREE.MeshNormalMaterial(), 
+  object,
   ...props 
 }) {
   const [ ready, setReady ] = useState(false)
@@ -51,11 +27,6 @@ export default function Candle({
   const { 
     camera
   } = useThree()
-
-  const object = useMemo(() => {
-    const loader = new OBJLoader()
-    return loader.parse(stringifiedSrc)
-  }, [])
 
   const onPointerMove = () => {
     object.traverse(function (child) {
@@ -85,8 +56,6 @@ export default function Candle({
     object.traverse(function (child) {
       if (child instanceof THREE.Mesh) {
         child.material = material
-        const MODIFIER_SUBDIVISIONS = 2
-        child.geometry = subdivide(child.geometry, MODIFIER_SUBDIVISIONS)
       }
     })
   }, [object])
