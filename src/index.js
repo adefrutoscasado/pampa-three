@@ -116,6 +116,10 @@ const App = () => {
       import('./models/candleE').then(({model}) => {
         setModel(model)
       })
+    if (containsQueryString('candleF'))
+      import('./models/candleF').then(({model}) => {
+        setModel(model)
+      })
   }, [])
 
   useMemo(() => {
