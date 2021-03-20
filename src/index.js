@@ -6,8 +6,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import queryString from 'query-string'
 import './styles.css'
 import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier'
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import Candle from './Candle'
+const loader = new GLTFLoader();
 
 extend({ OrbitControls })
 
@@ -91,54 +92,48 @@ function subdivide(geometry, subdivisions) {
 }
 
 const App = () => {
-  const [model, setModel] = useState()
   const [object, setObject] = useState()
 
-  // Do expensive functions being off screen (scene is not rendered until its on screen)
   useEffect(() => {
     if (containsQueryString('candleA'))
-      import('./models/candleA').then(({model}) => {
-        setModel(model)
+      loader.load('./candleA.gltf', ({scene}) => {
+        setObject(scene)
       })
     if (containsQueryString('candleB'))
-      import('./models/candleB').then(({model}) => {
-        setModel(model)
+      loader.load('./candleB.gltf', ({scene}) => {
+        setObject(scene)
       })
     if (containsQueryString('candleC'))
-      import('./models/candleC').then(({model}) => {
-        setModel(model)
+      loader.load('./candleC.gltf', ({scene}) => {
+        setObject(scene)
       })
     if (containsQueryString('candleD'))
-      import('./models/candleD').then(({model}) => {
-        setModel(model)
+      loader.load('./candleD.gltf', ({scene}) => {
+        setObject(scene)
       })
     if (containsQueryString('candleE'))
-      import('./models/candleE').then(({model}) => {
-        setModel(model)
+      loader.load('./candleE.gltf', ({scene}) => {
+        setObject(scene)
       })
     if (containsQueryString('candleF'))
-      import('./models/candleF').then(({model}) => {
-        setModel(model)
+      loader.load('./candleF.gltf', ({scene}) => {
+        setObject(scene)
       })
   }, [])
 
-  useMemo(() => {
-    if (model) {
-      const loader = new OBJLoader()
-      const object = loader.parse(model)
-      setObject(object)
-    }
-  }, [model])
-
-  useMemo(() => {
-    if (object)
-      object.traverse(function (child) {
-        if (child instanceof THREE.Mesh) {
-          const MODIFIER_SUBDIVISIONS = 2
-          child.geometry = subdivide(child.geometry, MODIFIER_SUBDIVISIONS)
-        }
-      })
-  }, [object])
+  // useMemo(() => {
+  //   if (object && (
+  //     containsQueryString('candleA') ||
+  //     containsQueryString('candleB') ||
+  //     containsQueryString('candleC')
+  //   ))
+  //     object.traverse(function (child) {
+  //       if (child instanceof THREE.Mesh) {
+  //         const MODIFIER_SUBDIVISIONS = 2
+  //         child.geometry = subdivide(child.geometry, MODIFIER_SUBDIVISIONS)
+  //       }
+  //     })
+  // }, [object])
 
   return (
     <Canvas
