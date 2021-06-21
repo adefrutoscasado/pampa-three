@@ -40,9 +40,9 @@ function _inyectShopPageIframes () {
     try {
         const iframeModelKey = {
             'MODELO-1': 'candleA',
-            'MODELO-2': 'candleB',
-            'MODELO-3': 'candleC',
-            'MODELO-4-y-5': 'candleF',
+            // 'MODELO-2': 'candleB',
+            // 'MODELO-3': 'candleC',
+            // 'MODELO-4-y-5': 'candleF',
             // 'MODELO-5': 'candleE',
             // 'MODELO-6': 'candleF',
             // 'MODELO-7': 'candleG',
@@ -50,19 +50,24 @@ function _inyectShopPageIframes () {
             // 'MODELO-9': 'candleI'
         }
         Object.keys(iframeModelKey).forEach(function (MODEL) {
-            $(`a[href="${MODEL}"]`)
-                .prepend(iframe(iframeModelKey[MODEL]))
-            const setIframeSize = (hrefModel) => {
-                const imgSelector = `a[href="${hrefModel}"] > img`
-                const iframeSelector = `a[href="${hrefModel}"] > .iframe-container`
-                const style = $(imgSelector)[0].style.cssText
-                $(iframeSelector)[0].style.cssText = style
-            }
-            setIframeSize(MODEL)
-            $(window).on('resize', function(){
+                $(`a[href="${MODEL}"].image-link`)
+                    .prepend(iframe(iframeModelKey[MODEL]))
+                const setIframeSize = (hrefModel) => {
+                    const imgSelector = `a[href="${hrefModel}"] > img`
+                    // now there are two images for the candle. Another one subyacent to the image. Hide it too
+                    const subyacentImgSelector = `a[href="${hrefModel}"] + img`
+                    const iframeSelector = `a[href="${hrefModel}"] > .iframe-container`
+                    const style = $(imgSelector)[0].style.cssText
+                    $(iframeSelector)[0].style.cssText = style
+                    $(imgSelector)[0].style.cssText = 'display: none;'
+                    $(subyacentImgSelector)[0].style.cssText = 'display: none;'
+                }
                 setIframeSize(MODEL)
-            });
-        })
+
+                $(window).on('resize', function(){
+                    setIframeSize(MODEL)
+                });
+            })
         return true
 
     } catch (error) {
@@ -91,16 +96,16 @@ function _tryUntilDone (fn, ms) {
     console.log({ done });
     if (!done) {
         window.setTimeout(() => {
-        _tryUntilDone(fn, ms + 10);
+            _tryUntilDone(fn, ms + 10);
         }, ms);
     }
-    };
+};
 
 const inyectHtml = () => {
     if (window.location.pathname.toLocaleLowerCase().includes('tienda'))
         _tryUntilDone(_inyectShopPageIframes)
-    if (window.location.pathname === '/')
-        _tryUntilDone(_inyectMainPageIframes)
+    //if (window.location.pathname === '/')
+        //_tryUntilDone(_inyectMainPageIframes)
 }
 
 $(document).ready(inyectHtml)
