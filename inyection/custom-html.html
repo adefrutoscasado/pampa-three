@@ -49,28 +49,42 @@ function _inyectShopPageIframes () {
             // 'MODELO-8': 'candleH',
             // 'MODELO-9': 'candleI'
         }
+
+
+
         Object.keys(iframeModelKey).forEach(function (MODEL) {
                 $(`a[href="${MODEL}"].image-link`)
                     .prepend(iframe(iframeModelKey[MODEL]))
                 const setIframeSize = (hrefModel) => {
                     const imgSelector = `a[href="${hrefModel}"] > img`
                     // now there are two images for the candle. Another one subyacent to the image. Hide it too
-                    const subyacentImgSelector = `a[href="${hrefModel}"] + img`
                     const iframeSelector = `a[href="${hrefModel}"] > .iframe-container`
                     const style = $(imgSelector)[0].style.cssText
-                    $(iframeSelector)[0].style.cssText = style
-                    $(imgSelector)[0].style.cssText = 'display: none;'
-                    $(subyacentImgSelector)[0].style.cssText = 'display: none;'
+                    $(iframeSelector)[0].style.cssText = style.replace(' display: none;', '')
                 }
+
+                const removeImages = (hrefModel) => {
+                    const imgSelector = `a[href="${hrefModel}"] > img`
+                    // now there are two images for the candle. Another one subyacent to the image. Hide it too
+                    const subyacentImgSelector = `a[href="${hrefModel}"] + img`
+
+                    
+                    $(imgSelector)[0].style.cssText = $(imgSelector)[0].style.cssText + ' display: none;'
+                    $(subyacentImgSelector)[0].style.cssText = $(subyacentImgSelector)[0].style.cssText + ' display: none;'
+                }
+
                 setIframeSize(MODEL)
+                removeImages(MODEL)
 
                 $(window).on('resize', function(){
+                    console.log('going to resize ', MODEL)
                     setIframeSize(MODEL)
                 });
             })
         return true
 
     } catch (error) {
+        console.log(error)
         return false
     }
 }
