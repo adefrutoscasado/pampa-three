@@ -40,9 +40,9 @@ function _inyectShopPageIframes () {
     try {
         const iframeModelKey = {
             'MODELO-1': 'candleA',
-            // 'MODELO-2': 'candleB',
-            // 'MODELO-3': 'candleC',
-            // 'MODELO-4-y-5': 'candleF',
+            'MODELO-2': 'candleB',
+            'MODELO-3': 'candleC',
+            'MODELO-4-y-5': 'candleF',
             // 'MODELO-5': 'candleE',
             // 'MODELO-6': 'candleF',
             // 'MODELO-7': 'candleG',
@@ -70,7 +70,7 @@ function _inyectShopPageIframes () {
 
                     
                     $(imgSelector)[0].style.cssText = $(imgSelector)[0].style.cssText + ' display: none;'
-                    $(subyacentImgSelector)[0].style.cssText = $(subyacentImgSelector)[0].style.cssText + ' display: none;'
+                    if ($(subyacentImgSelector)[0]) $(subyacentImgSelector)[0].style.cssText = $(subyacentImgSelector)[0].style.cssText + ' display: none;'
                 }
 
                 setIframeSize(MODEL)
