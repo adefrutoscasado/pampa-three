@@ -1,15 +1,7 @@
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QDQT2P3L4R"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-QDQT2P3L4R');
-</script>
-
-<script>
+// (() => {
 
 history.pushState = ( f => function pushState(){
     var ret = f.apply(this, arguments);
@@ -42,7 +34,9 @@ function _inyectShopPageIframes () {
             'MODELO-1': 'candleA',
             'MODELO-2': 'candleB',
             'MODELO-3': 'candleC',
-            'MODELO-4-y-5': 'candleF',
+            'MODELO-4': 'candleD',
+            'MODELO-5': 'candleE',
+            // 'MODELO-unicos': 'candleF',
             // 'MODELO-5': 'candleE',
             // 'MODELO-6': 'candleF',
             // 'MODELO-7': 'candleG',
@@ -105,12 +99,17 @@ function _inyectMainPageIframes () {
     }
 }
 
-function _tryUntilDone (fn, ms) {
+const maxRetries = 15
+let retries = 0
+
+function _tryUntilDone (fn, ms = 10) {
     const done = fn();
     console.log({ done });
+    if (retries > maxRetries) return
     if (!done) {
         window.setTimeout(() => {
-            _tryUntilDone(fn, ms + 10);
+            _tryUntilDone(fn, ms + 100);
+            retries++
         }, ms);
     }
 };
@@ -125,6 +124,7 @@ const inyectHtml = () => {
 $(document).ready(inyectHtml)
 window.addEventListener('locationchange', inyectHtml)
 
+// })()
 
 
 </script>
