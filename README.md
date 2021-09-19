@@ -9,3 +9,4 @@ Models:
 - [Candle C](https://adefrutoscasado.github.io/pampa-three/?candleC)
 - [Candle D](https://adefrutoscasado.github.io/pampa-three/?candleD)
 - [Candle E](https://adefrutoscasado.github.io/pampa-three/?candleE)
+- [Star](https://adefrutoscasado.github.io/pampa-three/?star&scale=0.5)

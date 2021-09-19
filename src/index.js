@@ -27,7 +27,15 @@ const queryStringColorOnOver = (function () {
   return query.colorOnOver.startsWith('#') ? query.colorOnOver : '#' + query.colorOnOver
 })()
 
-const Scene = ({object}) => {
+const queryStringScale = (function () {
+  if (!query.scale) return null
+  return query.scale
+})()
+
+const Scene = ({
+  object,
+  scaleObject
+}) => {
   const {
     camera,
     size,
@@ -62,7 +70,7 @@ const Scene = ({object}) => {
       <ambientLight />
       <spotLight position={[10, 10, 10]} />
       <pointLight position={[-10, -10, -10]} color="orange" />
-      {object && <Candle {...materials} object={object} />}
+      {object && <Candle {...materials} scale={scaleObject} object={object} />}
       <orbitControls ref={controls} args={[camera, domElement]} enableDamping/>
     </>
   )
@@ -146,7 +154,10 @@ const App = () => {
       camera={{ position: [0, 2, 5],zoom: 200, fov: 50 }}
       pixelRatio={window.devicePixelRatio || 1}
       >
-      <Scene object={object}/>
+      <Scene 
+        object={object} 
+        scaleObject={queryStringScale || 1}
+      />
     </Canvas>
   )
 }

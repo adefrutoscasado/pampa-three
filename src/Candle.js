@@ -20,10 +20,10 @@ export default function Candle({
   material = new THREE.MeshNormalMaterial(), 
   materialOnOver = new THREE.MeshNormalMaterial(), 
   object,
+  scale = 1,
   ...props 
 }) {
   const [ ready, setReady ] = useState(false)
-  
   const { 
     camera
   } = useThree()
@@ -90,7 +90,7 @@ export default function Candle({
   return (
     <>
       {ready && (
-        <mesh scale={[0.01, 0.01, 0.01]} position={[0, -1.5, 0]} {...props}>
+        <mesh scale={[0.01 * scale, 0.01 * scale, 0.01 * scale]} position={[0, -1.5, 0]} {...props}>
           <primitive
             attach="mesh"
             object={object}
