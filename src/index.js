@@ -119,6 +119,10 @@ const App = () => {
       loader.load('./candleF.gltf', ({scene}) => {
         setObject(scene)
       })
+    if (containsQueryString('star'))
+      loader.load('./star.gltf', ({scene}) => {
+        setObject(scene)
+      })
   }, [])
 
   // useMemo(() => {

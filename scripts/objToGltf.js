@@ -7,7 +7,8 @@ const filenames = [
     'candleC', 
     'candleD', 
     'candleE', 
-    'candleF', 
+    'candleF',
+    'star'
 ]
 
 const convertToGltf = async (filename) => {

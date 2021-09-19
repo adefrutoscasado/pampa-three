@@ -23,7 +23,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "objToGltf": "node ./scripts/objToGltf.js"
+    "objToGltf": "node ./scripts/objToGltf.js",
+    "pushToGithub": "git push github-ssh"
   },
   "browserslist": [
     ">0.2%",
