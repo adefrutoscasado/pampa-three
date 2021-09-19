@@ -36,7 +36,7 @@ function _inyectShopPageIframes () {
             'MODELO-3': 'candleC',
             'MODELO-4': 'candleD',
             'MODELO-5': 'candleE',
-            // 'MODELO-unicos': 'candleF',
+            'MODELO-unicos': 'star&scale=0.7',
             // 'MODELO-5': 'candleE',
             // 'MODELO-6': 'candleF',
             // 'MODELO-7': 'candleG',
@@ -115,6 +115,7 @@ function _tryUntilDone (fn, ms = 10) {
 };
 
 const inyectHtml = () => {
+    retries = 0
     if (window.location.pathname.toLocaleLowerCase().includes('tienda'))
         _tryUntilDone(_inyectShopPageIframes)
     //if (window.location.pathname === '/')
