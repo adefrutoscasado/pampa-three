@@ -31,12 +31,12 @@ function iframe (candle) {
 function _inyectShopPageIframes () {
     try {
         const iframeModelKey = {
-            'MODELO-1': 'candleA',
-            'MODELO-2': 'candleB',
-            'MODELO-3': 'candleC',
-            'MODELO-4': 'candleD',
-            'MODELO-5': 'candleE',
-            'MODELO-unicos': 'star&scale=0.7',
+            'MODELO_1': 'candleA',
+            'MODELO_2': 'candleB',
+            'MODELO_3': 'candleC',
+            'MODELO_4': 'candleD',
+            'MODELO_5': 'candleE',
+            'MODELO_UNICO': 'star&scale=0.7',
             // 'MODELO-5': 'candleE',
             // 'MODELO-6': 'candleF',
             // 'MODELO-7': 'candleG',
@@ -70,7 +70,8 @@ function _inyectShopPageIframes () {
                 setIframeSize(MODEL)
                 removeImages(MODEL)
 
-                $(window).on('resize', function(){
+                // TODO: Check window orioentation change
+                $(window).on('resize orientationchange', function(){
                     console.log('going to resize ', MODEL)
                     setIframeSize(MODEL)
                 });
