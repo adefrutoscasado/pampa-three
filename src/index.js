@@ -5,7 +5,7 @@ import { Canvas, useThree, extend } from 'react-three-fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import queryString from 'query-string'
 import './styles.css'
-import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier'
+// import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import Candle from './Candle'
 const loader = new GLTFLoader();
@@ -80,24 +80,24 @@ const Scene = ({
  * Generates a smooth geometry from a shaded one
  * https://threejs.org/examples/?q=subd#webgl_modifier_subdivision
  */
-function subdivide(geometry, subdivisions) {
-  const faceIndices = ['a', 'b', 'c']
-  const modifier = new SubdivisionModifier(subdivisions)
-  const smoothGeometry = modifier.modify(geometry)
-  // colorify faces
-  for (let i = 0; i < smoothGeometry.faces.length; i++) {
-    const face = smoothGeometry.faces[i]
-    for (let j = 0; j < 3; j++) {
-      const vertexIndex = face[faceIndices[j]]
-      const vertex = smoothGeometry.vertices[vertexIndex]
-      const hue = vertex.y / 200 + 0.5
-      const color = new THREE.Color().setHSL(hue, 1, 0.5)
-      face.vertexColors[j] = color
-    }
-  }
-  // convert to THREE.BufferGeometry
-  return new THREE.BufferGeometry().fromGeometry(smoothGeometry)
-}
+// function subdivide(geometry, subdivisions) {
+//   const faceIndices = ['a', 'b', 'c']
+//   const modifier = new SubdivisionModifier(subdivisions)
+//   const smoothGeometry = modifier.modify(geometry)
+//   // colorify faces
+//   for (let i = 0; i < smoothGeometry.faces.length; i++) {
+//     const face = smoothGeometry.faces[i]
+//     for (let j = 0; j < 3; j++) {
+//       const vertexIndex = face[faceIndices[j]]
+//       const vertex = smoothGeometry.vertices[vertexIndex]
+//       const hue = vertex.y / 200 + 0.5
+//       const color = new THREE.Color().setHSL(hue, 1, 0.5)
+//       face.vertexColors[j] = color
+//     }
+//   }
+//   // convert to THREE.BufferGeometry
+//   return new THREE.BufferGeometry().fromGeometry(smoothGeometry)
+// }
 
 const App = () => {
   const [object, setObject] = useState()
@@ -152,8 +152,8 @@ const App = () => {
       colorManagement
       orthographic
       camera={{ position: [0, 2, 5],zoom: 200, fov: 50 }}
-      pixelRatio={window.devicePixelRatio || 1}
-      >
+      pixelRatio={0.1} // window.devicePixelRatio
+    >
       <Scene 
         object={object} 
         scaleObject={queryStringScale || 1}
