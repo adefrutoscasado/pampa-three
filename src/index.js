@@ -152,7 +152,7 @@ const App = () => {
       colorManagement
       orthographic
       camera={{ position: [0, 2, 5],zoom: 200, fov: 50 }}
-      pixelRatio={0.1} // window.devicePixelRatio
+      pixelRatio={window.devicePixelRatio || 1}
     >
       <Scene 
         object={object} 
