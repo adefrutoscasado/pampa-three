@@ -7,8 +7,10 @@ import queryString from 'query-string'
 import './styles.css'
 // import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
 import Candle from './Candle'
-const loader = new GLTFLoader();
+const loader = new GLTFLoader()
+loader.setMeshoptDecoder(MeshoptDecoder)
 
 // extend({ OrbitControls })
 
@@ -97,31 +99,31 @@ const App = () => {
 
   useEffect(() => {
     if (containsQueryString('candleA'))
-      loader.load('./candleA.gltf', ({scene}) => {
+      loader.load('./candleA.glb', ({scene}) => {
         setObject(scene)
       })
     if (containsQueryString('candleB'))
-      loader.load('./candleB.gltf', ({scene}) => {
+      loader.load('./candleB.glb', ({scene}) => {
         setObject(scene)
       })
     if (containsQueryString('candleC'))
-      loader.load('./candleC.gltf', ({scene}) => {
+      loader.load('./candleC.glb', ({scene}) => {
         setObject(scene)
       })
     if (containsQueryString('candleD'))
-      loader.load('./candleD.gltf', ({scene}) => {
+      loader.load('./candleD.glb', ({scene}) => {
         setObject(scene)
       })
     if (containsQueryString('candleE'))
-      loader.load('./candleE.gltf', ({scene}) => {
+      loader.load('./candleE.glb', ({scene}) => {
         setObject(scene)
       })
     if (containsQueryString('candleF'))
-      loader.load('./candleF.gltf', ({scene}) => {
+      loader.load('./candleF.glb', ({scene}) => {
         setObject(scene)
       })
     if (containsQueryString('star'))
-      loader.load('./star.gltf', ({scene}) => {
+      loader.load('./star.glb', ({scene}) => {
         setObject(scene)
       })
   }, [])
