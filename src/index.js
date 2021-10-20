@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import ReactDOM from 'react-dom'
 import React, { useMemo, useRef, useEffect, useState } from 'react'
 import { Canvas, useThree, extend } from 'react-three-fiber'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import queryString from 'query-string'
 import './styles.css'
 // import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier'
@@ -10,7 +10,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import Candle from './Candle'
 const loader = new GLTFLoader();
 
-extend({ OrbitControls })
+// extend({ OrbitControls })
 
 const { query } = queryString.parseUrl(window.location.href)
 
@@ -53,17 +53,10 @@ const Scene = ({
     materialOnOver: new THREE.MeshPhongMaterial({ color: queryStringColorOnOver || '#E8A772', specular: '#F111111', shininess: 30, flatShading: true })
   }), [])
 
-  useEffect(() => {
-    controls.current.addEventListener('change', invalidate)
-    return () => controls.current.removeEventListener('change', invalidate)
-  }, [controls.current])
-
-  // useFrame(() => {
-  //   const MAX_ZOOM = 300
-  //   if (camera.zoom > MAX_ZOOM) {
-  //     camera.zoom = camera.zoom - (camera.zoom - MAX_ZOOM) * 0.075
-  //   }
-  // })
+  // useEffect(() => {
+  //   controls.current.addEventListener('change', invalidate)
+  //   return () => controls.current.removeEventListener('change', invalidate)
+  // }, [controls.current])
 
   return (
     <>
@@ -71,7 +64,7 @@ const Scene = ({
       <spotLight position={[10, 10, 10]} />
       <pointLight position={[-10, -10, -10]} color="orange" />
       {object && <Candle {...materials} scale={scaleObject} object={object} />}
-      <orbitControls ref={controls} args={[camera, domElement]} enableDamping/>
+      {/* <orbitControls ref={controls} args={[camera, domElement]} enableDamping/> */}
     </>
   )
 }

@@ -17,8 +17,8 @@ function getRandomInt(min, max) {
 
 export default function Candle({ 
   stringifiedSrc, 
-  material = new THREE.MeshNormalMaterial(), 
-  materialOnOver = new THREE.MeshNormalMaterial(), 
+  material,// = new THREE.MeshNormalMaterial(), 
+  materialOnOver,// = new THREE.MeshNormalMaterial(), 
   object,
   scale = 1,
   ...props 
